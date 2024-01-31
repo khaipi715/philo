@@ -6,13 +6,13 @@
 #    By: lnaulak <lnaulak@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/19 10:34:24 by lnaulak           #+#    #+#              #
-#    Updated: 2024/01/29 14:19:06 by lnaulak          ###   ########.fr        #
+#    Updated: 2024/01/31 14:56:43 by lnaulak          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS	= main.c
 
-SRCS	+= init_all.c utils.c engine.c
+SRCS	+= init_all.c utils.c engine.c threads.c
 
 OBJS	= $(SRCS:.c=.o)
 
@@ -20,8 +20,8 @@ NAME	= philo
 
 CLANG	= clang
 
-FLAGS	= -Wall -Wextra -Werror -g -O3
-#-fsanitize=thread
+FLAGS	= -Wall -Wextra -Werror -g -O3 -fsanitize=thread
+
 
 INCLUDE	= -lpthread
 
