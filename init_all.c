@@ -6,7 +6,7 @@
 /*   By: lnaulak <lnaulak@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 13:17:27 by lnaulak           #+#    #+#             */
-/*   Updated: 2024/01/31 13:30:43 by lnaulak          ###   ########.fr       */
+/*   Updated: 2024/01/31 15:12:38 by lnaulak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	init_philo(t_rules *rules)
 	{
 		philo[i].id = i + 1;
 		philo[i].right_fork_id = i;
-		if (i == rules->nb_philo - 1)
+		if (i == rules->nb_philo - 1 && rules->nb_philo != 1)
 			philo[i].left_fork_id = 0;
 		else
 			philo[i].left_fork_id = i + 1;
@@ -46,7 +46,7 @@ int	init_all(t_rules *rules, char **av)
 	rules->time_tdeath = ft_atoi(av[2]);
 	rules->time_teat = ft_atoi(av[3]);
 	rules->time_tsleep = ft_atoi(av[4]);
-	if (rules->nb_philo < 2 || rules->time_tdeath < 0 || rules->time_teat
+	if (rules->nb_philo <= 0 || rules->time_tdeath < 0 || rules->time_teat
 		< 0 || rules->time_tsleep < 0 || rules->nb_philo > 200)
 		return (1);
 	if (av[5] != NULL)

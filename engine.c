@@ -6,7 +6,7 @@
 /*   By: lnaulak <lnaulak@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 16:35:54 by lnaulak           #+#    #+#             */
-/*   Updated: 2024/01/31 14:56:07 by lnaulak          ###   ########.fr       */
+/*   Updated: 2024/01/31 15:56:26 by lnaulak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,15 +32,20 @@ void	*thread_creation(void *philo_ptr)
 
 int	death_checker(t_rules *rules)
 {
-	t_philosopher	*philo;
-	int				i;
+	t_philosopher *const	philo = rules->philosophers;
+	int						i;
+	int						j;
 
-	philo = rules->philosophers;
 	while (true)
 	{
 		i = 0;
+		j = 0;
 		while (i < rules->nb_philo)
 		{
+			if (philo[i].x_ate > rules->nb_to_eat && rules->nb_to_eat != -1)
+				j++;
+			if (j >= rules->nb_philo)
+				return (0);
 			if (philo->t_last_meal + philo->rules->time_tdeath < timestamp())
 			{
 				action_print(rules, i + 1, "died");
@@ -64,14 +69,12 @@ int	exit_launcher(t_rules *rules)
 		pthread_mutex_destroy(&rules->forks[i]);
 		i++;
 	}
-	// printf("mutex destory success\n");
 	while (i < rules->nb_philo)
 	{
 		pthread_join(rules->philosophers[i].thread_id, NULL);
 		i++;
 	}
 	i = 0;
-	// printf("thread destory success\n");
 	pthread_mutex_destroy(&rules->dieded_lock);
 	pthread_mutex_destroy(&rules->read_fork);
 	free(rules->avail);
